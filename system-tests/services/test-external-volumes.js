@@ -19,14 +19,15 @@ describe("Services", function() {
         `services/detail/%2F${Cypress.env("TEST_UUID")}%2F${serviceName}`
       );
 
-      // link is partly covered by another one, so we have to force it.
+      // Link is partly covered by another one, so we have to force it.
       cy
         .contains(`${Cypress.env("TEST_UUID")}_${serviceName}`)
         .click({ force: true });
 
       cy.contains("Logs").click();
+      cy.contains("button", "Output (stdout)").click();
 
-      cy.contains(message);
+      cy.contains(message).should("exist");
 
       cy.visitUrl(
         `services/detail/%2F${Cypress.env("TEST_UUID")}%2F${serviceName}`
@@ -50,14 +51,15 @@ describe("Services", function() {
 
       cy.contains("button", "Resume Service").click();
 
-      // link is partly covered by another one, so we have to force it.
+      // Link is partly covered by another one, so we have to force it.
       cy
         .contains(`${Cypress.env("TEST_UUID")}_${serviceName}`)
         .click({ force: true });
 
       cy.contains("Logs").click();
+      cy.contains("button", "Output (stdout)").click();
 
-      cy.contains(message + "\n" + message);
+      cy.contains(message + "\n" + message).should("exist");
     });
   });
 });
