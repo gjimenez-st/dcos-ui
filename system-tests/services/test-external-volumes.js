@@ -5,10 +5,9 @@ describe("Services", function() {
   /**
    * Test the external volumes
    */
-  describe("Volumes", function() {
+  describe("External Volumes", function() {
     beforeEach(function() {
       cy.visitUrl(`services/overview/%2F${Cypress.env("TEST_UUID")}/create`);
-      cy.server().route("POST", /\/service\/marathon\/v2\/apps/).as("appsReq");
     });
 
     afterEach(() => {
@@ -45,7 +44,7 @@ describe("Services", function() {
             ]
           },
           "cpus": 0.1,
-          "cmd": "echo TEST_OUTPUT_${Cypress.env("TEST_UUID")} >> $MESOS_SANDBOX/data/foo; cat $MESOS_SANDBOX/data/foo; while true; do sleep 10; done;",
+          "cmd": "echo TEST_OUTPUT_${Cypress.env("TEST_UUID")} >> \$MESOS_SANDBOX/data/foo; cat \$MESOS_SANDBOX/data/foo; while true; do sleep 10; done;",
           "mem": 16
         }`
       );
