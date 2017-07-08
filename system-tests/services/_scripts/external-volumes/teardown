@@ -1,0 +1,8 @@
+#!/bin/bash
+
+pip install boto3
+pip install retrying
+
+cmd="./services/_scripts/external-volumes/volclean.py -y -r $REGION -k $ACCESS_KEY_ID -s \"$SECRET_ACCESS_KEY\" --ignore-metrics --tags 'Name:^integration-test-dcos-ui-$TEST_UUID'"
+
+eval $cmd
