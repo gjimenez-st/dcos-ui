@@ -197,7 +197,7 @@ describe("Services", function() {
         .should("have.value", "test");
     });
 
-    it("should be persistent after suspension in single container services", function() {
+    it("should create an app that is persistent after suspension", function() {
       const serviceName = "external-volumes-single";
       const message = `TEST_OUTPUT_${Cypress.env("TEST_UUID")}`;
 
