@@ -3,6 +3,33 @@
 pip install boto3
 pip install retrying
 
-cmd="./services/_scripts/external-volumes/volclean.py -y -r $REGION -k $ACCESS_KEY_ID -s \"$SECRET_ACCESS_KEY\" --ignore-metrics --tags 'Name:^integration-test-dcos-ui-$TEST_UUID'"
+cmd="./services/_scripts/external-volumes/volclean.py \
+-y -r $REGION -k $ACCESS_KEY_ID -s \"$SECRET_ACCESS_KEY\" \
+--ignore-metrics --tags 'Name:^integration-test-dcos-ui-$TEST_UUID'"
 
-eval $cmd
+MATCH_STRING="Removing"
+TIMEOUT=30
+counter=0
+
+num_tests=$(($NUM_TESTS))
+
+while [ "$num_tests" -gt 0 ]
+do
+  echo "Preparing for test"
+  while
+    result=$(eval "$cmd 2>&1")
+    echo $result
+    num_removed=$(echo $result | sed 's/[^0-9]*//g')
+    num_tests=$(($num_tests-$num_removed))
+    sleep 1s
+    counter=$(($counter+1))
+    if [[ "$counter" -ge $TIMEOUT ]]; then
+      echo "Timeout exceeded: External volume deletion"
+      exit 1
+    fi
+
+    [[ $result != *$MATCH_STRING* ]]
+  do
+    :
+  done
+done

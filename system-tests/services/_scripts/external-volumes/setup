@@ -1,5 +1,10 @@
 #!/bin/bash
 
+if [ -z "$NUM_TESTS" ]; then
+  echo "Error: Please specify the NUM_TESTS environment variable"
+  exit 1
+fi
+
 if [ -z "$REGION" ]; then
   echo "Error: Please specify the REGION environment variable"
   exit 1
