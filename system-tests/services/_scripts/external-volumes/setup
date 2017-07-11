@@ -1,7 +1,7 @@
 #!/bin/bash
 
-if [ -z "$NUM_TESTS" ]; then
-  echo "Error: Please specify the NUM_TESTS environment variable"
+if [ -z "$NUM_VOLS_DELETE" ]; then
+  echo "Error: Please specify the NUM_VOLS_DELETE environment variable"
   exit 1
 fi
 

@@ -7,20 +7,21 @@ cmd="./services/_scripts/external-volumes/volclean.py \
 -y -r $REGION -k $ACCESS_KEY_ID -s \"$SECRET_ACCESS_KEY\" \
 --ignore-metrics --tags 'Name:^integration-test-dcos-ui-$TEST_UUID'"
 
-MATCH_STRING="Removing"
+MATCH_STRING="*Removing*Volumes*"
 TIMEOUT=30
 counter=0
 
-num_tests=$(($NUM_TESTS))
+num_vols_delete=$NUM_VOLS_DELETE
 
-while [ "$num_tests" -gt 0 ]
+while [ "$num_vols_delete" -gt 0 ]
 do
-  echo "Preparing for test"
+  echo "$num_vols_delete volume(s) left to delete"
   while
     result=$(eval "$cmd 2>&1")
     echo $result
-    num_removed=$(echo $result | sed 's/[^0-9]*//g')
-    num_tests=$(($num_tests-$num_removed))
+    remove_string=$(echo $result | sed -n 's/^.*\(\Removing.*[0-9].*\Volumes\).*/\1/p')
+    num_removed=$(echo $remove_string | sed 's/[^0-9]*//g')
+    num_vols_delete=$(($num_vols_delete-${num_removed:-0}))
     sleep 1s
     counter=$(($counter+1))
     if [[ "$counter" -ge $TIMEOUT ]]; then
@@ -28,7 +29,7 @@ do
       exit 1
     fi
 
-    [[ $result != *$MATCH_STRING* ]]
+    [[ $result != $MATCH_STRING ]]
   do
     :
   done
