@@ -20,10 +20,7 @@
     "node": "4.4.x",
     "npm": "3.9.x"
   },
-  "browserslist": [
-    "last 2 versions",
-    "ie 11"
-  ],
+  "browserslist": ["last 2 versions", "ie 11"],
   "config": {
     "port": 4200,
     "externalplugins": ""
@@ -40,6 +37,7 @@
     "deep-equal": "1.0.1",
     "flux": "2.1.1",
     "intl": "1.2.5",
+    "js-beautify": "1.6.14",
     "less-color-lighten": "0.0.1",
     "lodash.throttle": "4.1.1",
     "md5": "2.1.0",
@@ -54,7 +52,9 @@
     "react-addons-css-transition-group": "15.4.1",
     "react-addons-pure-render-mixin": "15.4.1",
     "react-addons-test-utils": "15.4.1",
+    "react-codemirror": "0.2.6",
     "react-dom": "15.4.1",
+    "react-element-to-jsx-string": "10.1.0",
     "react-gemini-scrollbar": "2.1.5",
     "react-intl": "2.2.3",
     "react-redux": "4.4.6",
